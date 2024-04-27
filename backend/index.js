@@ -1,21 +1,17 @@
+require('dotenv').config(); // This should be at the very top
+
 // Importing necessary modules
 const express = require('express');
 const cors = require('cors');
-const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/auth');
-const productRoutes = require('./routes/products'); // Add this line to require the product routes
+const productRoutes = require('./routes/products');
 
-// Load environment variables
-dotenv.config();
-
-// Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
+// Connect to MongoDB using environment variable
+mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log('MongoDB connected successfully.'))
 .catch(err => console.error('MongoDB connection error:', err));
+
 
 // Initialize Express app
 const app = express();
@@ -33,7 +29,7 @@ app.get('/', (req, res) => {
 // Authentication Routes
 app.use('/auth', authRoutes);
 
-// Product Routes - Add this to use the product routes
+// Product Routes
 app.use('/api/products', productRoutes);
 
 // Start server

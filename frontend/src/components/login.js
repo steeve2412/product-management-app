@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import API from '../api/api';
+import { useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 function Login() {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
   });
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const { username, password } = formData;
 
@@ -17,33 +21,30 @@ function Login() {
     try {
       const res = await axios.post('http://localhost:4000/auth/login', formData);
       localStorage.setItem('token', res.data.token);
-      // Redirect to products or home page after successful login
+      navigate('/productlist'); // Redirect to products page after successful login
     } catch (error) {
-      console.error(error.response.data); // The response data from backend should have the error message
+      setError(error.response.data.error || 'Failed to login');
+      console.error('Login error:', error.response.data);
     }
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <input
-        type="text"
-        name="username"
-        value={username}
-        onChange={onChange}
-        placeholder="Username"
-        required
-      />
-      <input
-        type="password"
-        name="password"
-        value={password}
-        onChange={onChange}
-        placeholder="Password"
-        required
-      />
-      <button type="submit">Login</button>
-    </form>
-  );
+    <div className="container mt-4">
+        <h2>Login</h2>
+        <form onSubmit={onSubmit} className="mb-3">
+            <div className="form-group">
+                <label htmlFor="loginUsername">Username</label>
+                <input type="text" className="form-control" id="loginUsername" placeholder="Enter username" name="username" value={username} onChange={onChange} required />
+            </div>
+            <div className="form-group">
+                <label htmlFor="loginPassword">Password</label>
+                <input type="password" className="form-control" id="loginPassword" placeholder="Enter password" name="password" value={password} onChange={onChange} required />
+            </div>
+            <button type="submit" className="btn btn-primary">Login</button>
+            {error && <div className="alert alert-danger mt-2" role="alert">{error}</div>}
+        </form>
+    </div>
+);
 }
 
 export default Login;
