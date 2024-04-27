@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
-const User = require('./models/user'); // Make sure the path to your model is correct
+const User = require('./models/user');
 
 // Connect to MongoDB without deprecated options
 mongoose.connect('mongodb://127.0.0.1:27017/productManagementDB')
   .then(() => {
     console.log('Connected to MongoDB');
-    return checkUsers(); // Call a function to perform database operations
+    return checkUsers(); 
   })
   .catch(err => {
     console.error('Connection error:', err);

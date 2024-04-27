@@ -1,4 +1,4 @@
-require('dotenv').config(); // This should be at the very top
+require('dotenv').config(); 
 
 // Importing necessary modules
 const express = require('express');

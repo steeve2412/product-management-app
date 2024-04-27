@@ -1,6 +1,6 @@
 const express = require('express');
-const Product = require('../models/Products'); // Adjust path as needed
-const auth = require('./auth'); // Your auth middleware to secure routes
+const Product = require('../models/Products'); 
+const auth = require('./auth'); 
 
 const router = express.Router();
 router.get('/', auth, async (req, res) => {

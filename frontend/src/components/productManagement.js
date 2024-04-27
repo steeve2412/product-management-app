@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import AddProduct from './addProducts'; // Make sure this path is correct
+import AddProduct from './addProducts';
 import '../index.css';
 
 const ProductManagementPage = () => {
@@ -36,8 +36,8 @@ const ProductManagementPage = () => {
         axios.delete(`http://localhost:4000/api/products/${id}`)
       ));
       setSuccessMessage('Selected products have been successfully deleted.');
-      fetchProducts(); // Refresh list after deletion
-      setSelectedProducts([]); // Reset selection
+      fetchProducts();
+      setSelectedProducts([]); 
     } catch (error) {
       console.error("Failed to delete products", error);
     }

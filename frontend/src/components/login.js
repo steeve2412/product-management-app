@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Login() {
@@ -21,9 +21,9 @@ function Login() {
     try {
       const res = await axios.post('http://localhost:4000/auth/login', formData);
       localStorage.setItem('token', res.data.token);
-      navigate('/productlist'); // Redirect to products page after successful login
+      navigate('/productlist');
     } catch (error) {
-      setError(error.response.data.error || 'Failed to login');
+      setError(error.response.data.message || 'Failed to login'); 
       console.error('Login error:', error.response.data);
     }
   };
@@ -43,6 +43,9 @@ function Login() {
             <button type="submit" className="btn btn-primary">Login</button>
             {error && <div className="alert alert-danger mt-2" role="alert">{error}</div>}
         </form>
+        <div className="mt-3">
+          <p>Don't have an account? <Link to="/signup" className="btn btn-secondary">Sign Up</Link></p>
+        </div>
     </div>
 );
 }

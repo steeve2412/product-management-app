@@ -4,7 +4,7 @@ import Login from './components/login';
 import Signup from './components/signup';
 import ProductsList from './components/productsList';
 import ProductManagementPage from './components/productManagement';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Assuming you are using Bootstrap
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
   const [authToken, setAuthToken] = useState(localStorage.getItem('token'));
